@@ -41,7 +41,7 @@ add_license(){
 
 # Check if a license type argument is provided
 if [ $# -ne 1 ]; then
-    echo "Usage: license add <license_type>"
+    echo "Usage: license <license_type>"
     exit 1
 fi
 
