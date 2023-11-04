@@ -34,7 +34,7 @@ jobs:
               if: steps.check-release.outputs.release_exists != 'true'
               run: |
                   # Set the release version
-                  RELEASE_VERSION=$RELEASE_ID  # Replace with your desired version
+                  RELEASE_VERSION=${{ github.event.inputs.version }} # Replace with your desired version
 
                   # Create a directory for the release archive
                   mkdir -p release
