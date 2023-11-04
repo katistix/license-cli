@@ -1,0 +1,58 @@
+name: Build and Release
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Release version (e.g., v1.0.0)"
+                required: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Check for existing release
+              id: check-release
+              run: |
+                  # Extract the release version from the inputs
+                  VERSION="${{ github.event.inputs.version }}"
+
+                  # Check if a release with the same version already exists
+                  RELEASE_ID=$(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION" | jq -r '.id')
+                  if [[ -n "$RELEASE_ID" ]]; then
+                    echo "::set-output name=release_exists::true"
+                  else
+                    echo "::set-output name=release_exists::false"
+                  fi
+              shell: bash
+
+            - name: Create release archive
+              if: steps.check-release.outputs.release_exists != 'true'
+              run: |
+                  # Set the release version
+                  RELEASE_VERSION=v1.0.0  # Replace with your desired version
+
+                  # Create a directory for the release archive
+                  mkdir -p release
+
+                  # Copy your Bash script to the release directory
+                  cp license.sh release/
+
+                  # Create a release archive
+                  tar -czvf release/license-$RELEASE_VERSION.tar.gz -C release/ license.sh
+
+                  echo "::set-output name=release::release/license-$RELEASE_VERSION.tar.gz"
+
+            - name: Upload release archive
+              if: steps.check-release.outputs.release_exists != 'true'
+              id: upload-release
+              uses: actions/upload-release-asset@v1
+              with:
+                  upload_url: ${{ steps.create-release.outputs.upload_url }}
+                  asset_path: ${{ steps.build.outputs.release }}
+                  asset_name: your-cli-script-$RELEASE_VERSION.tar.gz
+                  asset_content_type: application/gzip
