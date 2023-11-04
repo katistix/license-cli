@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 add_license(){
     local license_type="$1"
