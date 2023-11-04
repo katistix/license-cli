@@ -8,6 +8,9 @@ TOOL_NAME="license"
 latest_release_url="https://api.github.com/repos/$REPO/releases/latest"
 latest_release_version=$(curl -s $latest_release_url | grep -oP '"tag_name": "\K(.*)(?=")')
 
+echo "Latest release version: $latest_release_version"
+
+
 # Define the URL for the release archive
 release_url="https://github.com/$REPO/releases/download/$latest_release_version/$TOOL_NAME-$latest_release_version.tar.gz"
 
