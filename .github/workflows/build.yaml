@@ -8,11 +8,11 @@ on:
                 required: true
 
 jobs:
-    build:
+    check-release:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout code
+            - name: Check out code
               uses: actions/checkout@v2
 
             - name: Check for existing release
@@ -30,8 +30,12 @@ jobs:
                   fi
               shell: bash
 
+    release:
+        needs: release
+        runs-on: ubuntu-latest
+        if: steps.release.outputs.release_exists != 'true'
+        steps:
             - name: Create release archive
-              if: steps.check-release.outputs.release_exists != 'true'
               run: |
                   # Set the release version
                   RELEASE_VERSION=${{ github.event.inputs.version }} # Replace with your desired version
@@ -48,8 +52,6 @@ jobs:
                   echo "::set-output name=release::release/license-$RELEASE_VERSION.tar.gz"
 
             - name: Upload release archive
-              if: steps.check-release.outputs.release_exists != 'true'
-              id: upload-release
               uses: actions/upload-release-asset@v1
               with:
                   upload_url: ${{ steps.create-release.outputs.upload_url }}
