@@ -6,7 +6,9 @@ TOOL_NAME="license"
 
 # Determine the latest release version
 latest_release_url="https://api.github.com/repos/$REPO/releases/latest"
-latest_release_version=$(curl -s $latest_release_url | grep -oP '"tag_name": "\K(.*)(?=")')
+latest_release_info=$(curl -s $latest_release_url)
+# Use grep and awk to parse the latest release version from the JSON response
+latest_release_version=$(echo "$latest_release_info" | grep -o '"tag_name": "[^"]*' | awk -F '"' '{print $4}')
 
 echo "Latest release version: $latest_release_version"
 
