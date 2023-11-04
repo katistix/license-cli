@@ -19,11 +19,11 @@ curl -LO $release_url
 tar -xzvf $TOOL_NAME-$latest_release_version.tar.gz
 
 # Make the tool executable and move it to the installation directory
-sudo chmod +x $TOOL_NAME
-sudo mv $TOOL_NAME $INSTALL_DIR/
+sudo chmod +x $TOOL_NAME.sh
+sudo mv $TOOL_NAME.sh $INSTALL_DIR/
 
 # Clean up downloaded files
 rm $TOOL_NAME-$latest_release_version.tar.gz
 
 # Provide a success message
-echo "$TOOL_NAME $latest_release_version has been installed to $INSTALL_DIR"
+echo "$REPO $latest_release_version has been installed to $INSTALL_DIR"
