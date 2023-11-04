@@ -17,7 +17,7 @@ curl -s https://raw.githubusercontent.com/katistix/license-cli/master/install.sh
 To use this tool, run the following command in your terminal:
 
 ```bash
-license add <license_type>
+license <license_type>
 ```
 
 Replace `<license_type>` with the license you want to use. A list of supported licenses can be found in the `/licenses` folder.
@@ -25,5 +25,5 @@ Replace `<license_type>` with the license you want to use. A list of supported l
 Example to add the MIT license to your project:
 
 ```bash
-license add mit
+license mit
 ```
