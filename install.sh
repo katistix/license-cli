@@ -19,8 +19,8 @@ curl -LO $release_url
 tar -xzvf $TOOL_NAME-$latest_release_version.tar.gz
 
 # Make the tool executable and move it to the installation directory
-chmod +x $TOOL_NAME
-mv $TOOL_NAME $INSTALL_DIR/
+sudo chmod +x $TOOL_NAME
+sudo mv $TOOL_NAME $INSTALL_DIR/
 
 # Clean up downloaded files
 rm $TOOL_NAME-$latest_release_version.tar.gz
