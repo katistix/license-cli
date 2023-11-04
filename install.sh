@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 
 # Set the repository details
 REPO="katistix/license-cli"
