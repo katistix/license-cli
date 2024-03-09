@@ -1,0 +1,27 @@
+{
+  "bin": {
+    "license": "./dist/cli.js"
+  },
+  "name": "@katistix/license-cli",
+  "version": "1.0.0",
+  "description": "This is a CLI tool to help you generate a license file for your project.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "tsup && cp -r licenses dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "license",
+    "cli",
+    "tool"
+  ],
+  "author": "Paul Tal <katistix.studios@gmail.com> (https://paultal.online)",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
+  }
+}
